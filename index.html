@@ -410,6 +410,19 @@
             grid-column: 1 / -1;
         }
 
+        .version {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            color: #b4bdc6;
+            opacity: 0.7;
+            background: #1a2c38;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #2d3f4d;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -429,6 +442,7 @@
     </style>
 </head>
 <body>
+    <div class="version">Fix 3.1</div>
     <div class="game-container">
         <div class="warning-banner">
             <span class="warning-icon">⚠️</span>
@@ -519,6 +533,16 @@
         const redeemBtn = document.getElementById('redeemBtn');
         const redeemMessageEl = document.getElementById('redeemMessage');
 
+        const promoCodes = {
+            'tony': 1000,
+            'nr3': 3,
+            'lucy': 1,
+            'mitchel': 100,
+            'jaiden': 69,
+            'eesa': 67,
+            'supermegabalance': 9999
+        };
+
         redeemBtn.addEventListener('click', redeemCode);
         redeemCodeEl.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -541,11 +565,13 @@
                 return;
             }
 
-            if (code.toLowerCase() === 'tony') {
-                balance += 1000;
+            const codeValue = promoCodes[code.toLowerCase()];
+            
+            if (codeValue) {
+                balance += codeValue;
                 balanceEl.textContent = balance;
                 redeemedCodes.push(code.toLowerCase());
-                redeemMessageEl.textContent = '🎉 Success! +1000 chips added!';
+                redeemMessageEl.textContent = `🎉 Success! +${codeValue} chips added!`;
                 redeemMessageEl.className = 'redeem-message success';
                 redeemCodeEl.value = '';
             } else {
